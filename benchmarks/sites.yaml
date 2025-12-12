@@ -1,0 +1,148 @@
+# Benchmark sites — 20 stable URLs to exercise the 15 v1 skills.
+#
+# Selection criteria:
+#   - Durable (existed >5 years, expected to persist)
+#   - ToS-friendly to automation (no aggressive anti-bot, no scraping ToS we'd violate)
+#   - Each site exercises ≥2 skills; each skill is exercised by ≥2 sites
+#   - No login walls on the listed URLs (login-flow tested on dedicated sandbox sites)
+#
+# Cadence: re-run weekly post-launch (GitHub Actions cron). Stale-selector
+# failures become bug-tagged issues automatically.
+#
+# Anti-pattern check: NONE of these sites should require captcha-solving,
+# anti-detection, or scraping-ToS violations. If a benchmark requires those
+# to pass, drop the site.
+
+sites:
+
+  # === Reference / knowledge ===
+  - id: wikipedia-list
+    url: https://en.wikipedia.org/wiki/List_of_countries_by_population_(United_Nations)
+    skills: [extract-table-pagination, verify-page-loaded]
+    notes: Stable, ToS-friendly, classic table-extraction target.
+
+  - id: wikipedia-infinite
+    url: https://en.wikipedia.org/wiki/Special:RecentChanges
+    skills: [handle-infinite-scroll, verify-page-loaded]
+    notes: Continuous list, good infinite-scroll proxy.
+
+  - id: openalex-search
+    url: https://api.openalex.org
+    skills: [search-and-filter, extract-table-pagination]
+    notes: Open scholarly data; rate-limit-friendly.
+
+  - id: arxiv-listing
+    url: https://arxiv.org/list/cs.AI/recent
+    skills: [extract-table-pagination, pagination-next-page, verify-page-loaded]
+    notes: Standard academic listing.
+
+  # === Government (zero ToS friction) ===
+  - id: weather-gov-forecast
+    url: https://forecast.weather.gov/
+    skills: [search-and-filter, extract-table-pagination]
+    notes: US gov; tables of forecast data.
+
+  - id: cdc-data-tracker
+    url: https://www.cdc.gov/
+    skills: [search-and-filter, verify-page-loaded]
+    notes: Tables + navigation.
+
+  # === News / media (cookie-banner heavy) ===
+  - id: bbc-home
+    url: https://www.bbc.com/
+    skills: [dismiss-cookie-banner, verify-page-loaded, exit-tracking-popup]
+    notes: UK + EU jurisdiction — guaranteed cookie banner.
+
+  - id: guardian-home
+    url: https://www.theguardian.com/international
+    skills: [dismiss-cookie-banner, dismiss-newsletter-popup, handle-infinite-scroll]
+    notes: Cookie banner + newsletter popup combo.
+
+  - id: nytimes-home
+    url: https://www.nytimes.com/
+    skills: [dismiss-cookie-banner, detect-paywall, dismiss-newsletter-popup]
+    notes: Paywall detection target (don't bypass — detect).
+
+  # === E-commerce (modal, filter, pagination heavy) ===
+  - id: ebay-search
+    url: https://www.ebay.com/sch/i.html?_nkw=keyboard
+    skills: [search-and-filter, pagination-next-page, dismiss-cookie-banner]
+    notes: Search + filter + pagination. ToS-friendly for read-only browsing.
+
+  - id: rei-search
+    url: https://www.rei.com/c/tents
+    skills: [search-and-filter, dismiss-newsletter-popup, pagination-next-page]
+    notes: Newsletter popup demo target.
+
+  # === Developer-facing (forms, login flows on sandboxes) ===
+  - id: github-search
+    url: https://github.com/search?q=mcp-server&type=repositories
+    skills: [search-and-filter, pagination-next-page]
+    notes: Read-only search. No login on this URL.
+
+  - id: pypi-search
+    url: https://pypi.org/search/?q=mcp
+    skills: [search-and-filter, pagination-next-page]
+    notes: Public package index.
+
+  - id: stackoverflow-tag
+    url: https://stackoverflow.com/questions/tagged/python
+    skills: [pagination-next-page, dismiss-cookie-banner]
+    notes: Cookie banner + paginated list.
+
+  # === Booking / widgets (date-picker heavy) ===
+  - id: booking-home
+    url: https://www.booking.com/
+    skills: [dismiss-cookie-banner, date-picker-widget, search-and-filter]
+    notes: Calendar widget is the famous vision-agent failure case.
+
+  - id: opentable-home
+    url: https://www.opentable.com/
+    skills: [date-picker-widget, searchable-dropdown, dismiss-cookie-banner]
+    notes: Date + party-size + city dropdown.
+
+  # === Forms / file upload (sandboxes) ===
+  - id: httpbin-forms
+    url: https://httpbin.org/forms/post
+    skills: [fill-multi-step-form, upload-download-file]
+    notes: Famous test target. Public sandbox.
+
+  - id: the-internet-herokuapp
+    url: https://the-internet.herokuapp.com/
+    skills: [fill-multi-step-form, upload-download-file, login-flow]
+    notes: Curated test sandbox; login-flow lives here safely.
+
+  # === Hostile-environment detection ===
+  - id: cloudflare-protected-test
+    url: https://www.cloudflare.com/
+    skills: [detect-captcha, dismiss-cookie-banner]
+    notes: Captcha-style challenges. We DETECT only; never solve.
+
+  # === Bonus: stable but quirky ===
+  - id: hacker-news-list
+    url: https://news.ycombinator.com/news
+    skills: [extract-table-pagination, pagination-next-page]
+    notes: Tiny DOM, classic pagination. Sanity-check that simple sites still work.
+
+# Coverage check (manual): each v1 skill exercised on ≥2 sites?
+#   - dismiss-cookie-banner: bbc, guardian, nytimes, ebay, stackoverflow, booking, opentable, cloudflare (8) ✓
+#   - dismiss-newsletter-popup: guardian, nytimes, rei (3) ✓
+#   - handle-modal-dialog: (covered transitively by popup/banner skills) — TODO add direct fixture
+#   - verify-page-loaded: wikipedia-list, wikipedia-infinite, arxiv-listing, bbc, cdc (5) ✓
+#   - fill-multi-step-form: httpbin-forms, the-internet (2) ✓
+#   - upload-download-file: httpbin-forms, the-internet (2) ✓
+#   - extract-table-pagination: wikipedia-list, openalex, arxiv, weather-gov, hacker-news (5) ✓
+#   - handle-infinite-scroll: wikipedia-infinite, guardian (2) ✓
+#   - search-and-filter: openalex, weather-gov, cdc, ebay, rei, github, pypi (7) ✓
+#   - pagination-next-page: arxiv, ebay, rei, github, pypi, stackoverflow, hacker-news (7) ✓
+#   - date-picker-widget: booking, opentable (2) ✓
+#   - searchable-dropdown: opentable (1) — TODO add a 2nd site
+#   - login-flow: the-internet (1) — sufficient for v1 (single sandbox is correct posture)
+#   - detect-captcha: cloudflare (1) — sufficient; never need many
+#   - exit-tracking-popup: bbc (1) — TODO add a 2nd site
+
+# Notes on what's deliberately NOT here:
+#   - amazon.com — too anti-bot, demo will be flaky and ToS pushes back
+#   - linkedin.com — strict scraping ToS
+#   - facebook/instagram — login walls + ToS
+#   - any site with explicit anti-scraping language
