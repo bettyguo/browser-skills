@@ -1,0 +1,69 @@
+name: weekly-benchmark
+
+# Real-site benchmark runs. Separate from ci.yml so flaky-site issues
+# don't block PRs. Failures here open issues tagged `stale-selector`.
+
+on:
+  schedule:
+    # Mondays 06:00 UTC — quiet hours for most benchmark sites.
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+          python -m playwright install --with-deps chromium
+
+      - name: Run benchmarks (all skills × all sites)
+        run: python benchmarks/run.py --mode=full --output benchmarks/results.json
+        continue-on-error: true  # publish results even if some sites fail
+
+      - name: Open issues for newly-failing skills
+        run: python benchmarks/file_issues.py --input benchmarks/results.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Archive current run into benchmarks/_runs/ for next week's diff
+        run: |
+          mkdir -p benchmarks/_runs
+          cp benchmarks/results.json "benchmarks/_runs/results-$(date -u +%Y%m%d).json"
+          # Trim history to last 12 runs to avoid unbounded growth.
+          ls -1t benchmarks/_runs/results-*.json | tail -n +13 | xargs -r rm --
+
+      - name: Render HTML report
+        run: python benchmarks/publish.py
+
+      - name: Upload benchmarks/_site as Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: benchmarks/_site
+
+      - name: Deploy to GitHub Pages
+        id: deploy
+        uses: actions/deploy-pages@v4

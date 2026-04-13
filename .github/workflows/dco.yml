@@ -1,0 +1,51 @@
+name: dco
+
+# Enforces Developer Certificate of Origin sign-off on every commit in
+# a PR. CONTRIBUTING.md tells contributors to `git commit -s`; this is
+# the CI gate that turns "told" into "enforced."
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  dco:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # We need the full PR commit range to check every commit.
+          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Check every PR commit carries `Signed-off-by:`
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          # List every commit added by the PR. Skip merges (DCO is on
+          # the actual author commits; merges inherit).
+          missing=()
+          while read -r sha; do
+            [ -z "$sha" ] && continue
+            if ! git log -1 --format=%B "$sha" | grep -qiE '^signed-off-by: '; then
+              missing+=("$sha $(git log -1 --format='%s' "$sha")")
+            fi
+          done < <(git log --no-merges --format=%H "$BASE..$HEAD")
+
+          if [ "${#missing[@]}" -ne 0 ]; then
+            echo "::error::The following commits are missing a Signed-off-by line:"
+            for entry in "${missing[@]}"; do
+              echo "  - $entry"
+            done
+            echo ""
+            echo "Add it with: git commit --amend -s   (or git rebase -i and -s each)"
+            echo "See https://developercertificate.org/ and CONTRIBUTING.md"
+            exit 1
+          fi
+          echo "All PR commits have DCO sign-off."
