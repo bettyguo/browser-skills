@@ -4,7 +4,6 @@ F8: the doctor command exists and produces useful output for the
 common diagnostic scenarios (working install, missing chromium,
 missing fastmcp).
 """
-
 from __future__ import annotations
 
 from typer.testing import CliRunner

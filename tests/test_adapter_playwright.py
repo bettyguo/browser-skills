@@ -1,12 +1,11 @@
 """Tests for the PlaywrightPage adapter — the wrapper that sits between
 real Playwright Pages and the project's PageLike protocol.
 
-Regression test for Phase 1 finding C2: the wrapper was missing
+the wrapper was missing
 `screenshot` and `query_selector` methods, causing vision fallback and
 the screenshot recipe verb to silently fail when running through the
 MCP server (which always wraps the real page).
 """
-
 from __future__ import annotations
 
 from types import SimpleNamespace
@@ -38,7 +37,7 @@ def _fake_real_page(**overrides: Any) -> Any:
 
 
 async def test_screenshot_delegates_to_real_page() -> None:
-    """C2: the wrapper must expose `screenshot` so vision fallback's
+    """the wrapper must expose `screenshot` so vision fallback's
     _capture(page, scope) can locate it via getattr.
     """
     real = _fake_real_page()
@@ -53,7 +52,7 @@ async def test_screenshot_delegates_to_real_page() -> None:
 
 
 async def test_query_selector_delegates_to_real_page() -> None:
-    """C2: the wrapper must expose `query_selector` so the `screenshot`
+    """the wrapper must expose `query_selector` so the `screenshot`
     recipe verb (form.py) can scope captures to a specific selector.
     """
     real = _fake_real_page()

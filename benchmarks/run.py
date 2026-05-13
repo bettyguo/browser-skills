@@ -10,7 +10,6 @@ Full mode runs weekly via the GitHub Actions cron in .github/workflows/benchmark
 Outputs a single JSON to --output (defaults to benchmarks/results.json) with
 per-skill / per-site success and timing.
 """
-
 from __future__ import annotations
 
 import argparse

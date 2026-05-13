@@ -5,9 +5,8 @@ Adapters are loaded via entry points or set programmatically:
     browser_skills.config.set_vision_adapter(my_adapter)
 
 Reference adapters for Anthropic / OpenAI / Gemini ship as optional extras
-in v1 milestone 2; see ADR-011.
+in v1 milestone 2; see 
 """
-
 from __future__ import annotations
 
 from dataclasses import dataclass

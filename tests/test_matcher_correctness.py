@@ -1,6 +1,6 @@
 """Per-site matcher correctness assertions.
 
-T7: previously, matcher tests asserted presence of skills above
+previously, matcher tests asserted presence of skills above
 threshold, not whether the *right* skill was picked. The hand-tuned
 scoring rules in matcher.py are exactly the thing most likely to
 drift; this file catches drift.
@@ -12,7 +12,6 @@ the tests document the contract: "on a banner-bearing page, the
 banner skill outranks the modal skill"; "on a captcha page, captcha
 detect outranks every other applicable skill"; etc.
 """
-
 from __future__ import annotations
 
 from pathlib import Path

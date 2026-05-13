@@ -1,6 +1,6 @@
 """Parser for the `## Success criteria` SKILL.md section.
 
-C3+C7 step 1: the parser is shipped without behavior change. The
+this work: the parser is shipped without behavior change. The
 evaluator (step 2) and runner wiring (step 3) ship next.
 
 Coverage:
@@ -11,7 +11,6 @@ Coverage:
   - Quoted args (selectors with `[role='dialog']` syntax)
   - All v1 bundle skills parse without raising
 """
-
 from __future__ import annotations
 
 from pathlib import Path
@@ -111,7 +110,7 @@ def test_known_predicate_set_is_documented() -> None:
 
 
 def test_known_predicates_matches_dispatch_exactly() -> None:
-    """C2 (audit-3): KNOWN_PREDICATES is derived from _DISPATCH so the
+    """KNOWN_PREDICATES is derived from _DISPATCH so the
     parser can never claim a verb is known that the evaluator can't
     handle, and vice versa. Locks the relationship.
     """

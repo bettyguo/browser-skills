@@ -1,5 +1,4 @@
 """Matcher tests — score the v1 shipped skills against synthetic PageStates."""
-
 from __future__ import annotations
 
 from pathlib import Path

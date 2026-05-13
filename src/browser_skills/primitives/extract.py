@@ -1,7 +1,6 @@
 """extract_text and extract_table primitives. Bind values into the
 runner's variable scope.
 """
-
 from __future__ import annotations
 
 from typing import Any

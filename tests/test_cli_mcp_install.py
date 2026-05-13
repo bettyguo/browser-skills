@@ -6,7 +6,6 @@ auth is implemented. Until then, users can only install the stdio
 stanza, which is trusted by virtue of being a child process of their
 client.
 """
-
 from __future__ import annotations
 
 import json
@@ -37,7 +36,7 @@ def test_mcp_install_print_emits_stdio_stanza() -> None:
 
 
 def test_mcp_install_print_does_not_emit_unauthenticated_http() -> None:
-    """Doc5: until HTTP-transport Bearer-token auth is implemented, the
+    """until HTTP-transport Bearer-token auth is implemented, the
     install command must not emit an HTTP stanza — that would write
     a client config pointing at an MCP server with NO authentication.
     The `mcp serve --transport=streamable-http` flag still exists for
@@ -50,7 +49,7 @@ def test_mcp_install_print_does_not_emit_unauthenticated_http() -> None:
     server = payload["mcpServers"]["browser-skills"]
     assert "url" not in server, (
         "mcp install must not emit an `url` field (HTTP stanza) until "
-        "Bearer-token auth is implemented (Phase 3 roadmap Doc5)."
+        "Bearer-token auth is implemented (the early scoping roadmap Doc5)."
     )
 
 
@@ -60,7 +59,7 @@ def test_mcp_install_rejects_unknown_target() -> None:
     assert "Unknown target" in result.stdout
 
 
-# --- File-write target tests (T2 audit-2) --------------------------------
+# --- File-write target tests ---
 
 
 def _patch_home(monkeypatch, home: object) -> None:
@@ -162,9 +161,9 @@ def test_mcp_install_refuses_to_overwrite_invalid_json(
 
 
 def test_mcp_install_does_not_accept_transport_http_in_v0_2() -> None:
-    """Doc5: `--transport=http` would emit an unauthenticated HTTP MCP
+    """`--transport=http` would emit an unauthenticated HTTP MCP
     stanza into the user's client config. Until Bearer-token auth is
-    implemented (Phase 3 roadmap), the `--transport` option must not
+    implemented (the early scoping roadmap), the `--transport` option must not
     accept `http` — typer should reject the value at parse time, OR
     the command should error out, OR there should be no --transport
     option at all (the v0.2 choice). Any of these is acceptable; what

@@ -7,7 +7,6 @@ isn't installed (CI installs it via `playwright install chromium`).
 Marked `slow` so quick-feedback runs (`pytest tests/ -m 'not slow'`)
 can opt out.
 """
-
 from __future__ import annotations
 
 import functools
@@ -62,8 +61,6 @@ DEMO_HTML = b"""<!DOCTYPE html>
 </body>
 </html>
 """
-
-
 class _SilentHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:  # noqa: N802
         self.send_response(200)

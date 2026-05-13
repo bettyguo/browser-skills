@@ -75,14 +75,14 @@ asyncio.run(main())
 | **Forms** | [fill-multi-step-form](skills/fill-multi-step-form/SKILL.md) | Stepper wizards (Typeform, Calendly-style). |
 | | [upload-download-file](skills/upload-download-file/SKILL.md) | HTML5 file inputs. |
 | | [login-flow](skills/login-flow/SKILL.md) | env-var creds or persistent context. `sensitive: true`; trace redacts passwords. |
-| **Data extraction** | [extract-table-pagination](skills/extract-table-pagination/SKILL.md) | `<table>` → list of row dicts. The killer-demo skill. |
+| **Data extraction** | [extract-table-pagination](skills/extract-table-pagination/SKILL.md) | `<table>` → list of row dicts. The demo skill. |
 | | [handle-infinite-scroll](skills/handle-infinite-scroll/SKILL.md) | Scroll-until-no-more-content with documented stop conditions. |
 | **Navigation** | [search-and-filter](skills/search-and-filter/SKILL.md) | Type query, submit, capture results. |
 | | [pagination-next-page](skills/pagination-next-page/SKILL.md) | `rel="next"`, aria-label="Next", `li.next`, etc. |
 | **Widgets** | [date-picker-widget](skills/date-picker-widget/SKILL.md) | Native `<input type="date">` + custom calendar widgets. |
 | | [searchable-dropdown](skills/searchable-dropdown/SKILL.md) | `role="combobox"` typeahead. |
 
-See [docs/skills-design.md](docs/skills-design.md) for the brainstorm-to-cut rationale.
+See  for the brainstorm-to-cut rationale.
 
 ## What makes this different
 
@@ -154,10 +154,10 @@ python benchmarks/run.py --mode=full   # real Chromium, ~10 min
 
 ## Project state
 
-- [STATUS.md](STATUS.md) — current phase, hours, blockers, next steps
-- [DECISIONS.md](DECISIONS.md) — 12 ADRs (no captcha solving, vision-as-fallback, BYO vision adapter, etc.)
+- the project tracker — current phase, hours, blockers, next steps
+- the project's ethics doc — 12 ADRs (no captcha solving, vision-as-fallback, BYO vision adapter, etc.)
 - [docs/](docs/) — design docs (recipe format, matcher, runner, MCP, ethics, ecosystem)
-- [docs/ecosystem-recon.md](docs/ecosystem-recon.md) — competitive landscape (May 2026)
+-  — competitive landscape (May 2026)
 
 ## License
 

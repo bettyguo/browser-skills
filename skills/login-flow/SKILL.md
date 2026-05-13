@@ -28,7 +28,7 @@ The user task requires authentication. The agent provides credentials in:
 - `vars.username` (or `vars.email`)
 - `vars.password`
 
-Per ADR-004 and [docs/ethics.md](../../docs/ethics.md): we use the
+Per  and [docs/ethics.md](../../docs/ethics.md): we use the
 agent-provided creds *only* — typically sourced by the agent from env
 vars (`$SITE_X_USER`, `$SITE_X_PASS`) the user has set, or from a
 password manager the user controls. **We never harvest, prompt for, or

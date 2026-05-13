@@ -3,7 +3,6 @@
 Format conformance: agentskills.io spec + the browser-skills recipe convention
 documented in docs/skill-recipe-format.md.
 """
-
 from __future__ import annotations
 
 import re
@@ -100,16 +99,12 @@ class BrowserSkillsError(Exception):
     """Base for all browser-skills exceptions. Library users can
     `except BrowserSkillsError` to catch anything this package raises.
     """
-
-
 class SkillParseError(BrowserSkillsError, ValueError):
     """Raised when a SKILL.md cannot be parsed.
 
     Inherits from both BrowserSkillsError (project-wide catch) and
     ValueError (legacy compatibility — early test code caught ValueError).
     """
-
-
 def parse_skill(path: str | Path) -> Skill:
     """Parse a SKILL.md file into a Skill object.
 

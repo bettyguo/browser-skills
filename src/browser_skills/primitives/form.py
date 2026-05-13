@@ -3,7 +3,6 @@
 Each routes through the PageLike protocol; FakePage in tests records the
 operation in a log so tests can assert on intent.
 """
-
 from __future__ import annotations
 
 import base64
