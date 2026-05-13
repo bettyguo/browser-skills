@@ -3,7 +3,6 @@
 > **The missing content layer for [agentskills.io](https://agentskills.io).**
 > Agent-agnostic, runtime-neutral recipes for the boring web patterns every browser agent re-learns from scratch — cookie banners, infinite scroll, multi-step forms, table extraction, login flows.
 
-[![CI](https://github.com/browser-skills/browser-skills/actions/workflows/ci.yml/badge.svg)](https://github.com/browser-skills/browser-skills/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 [![SKILL.md spec](https://img.shields.io/badge/spec-agentskills.io-blue.svg)](https://agentskills.io/specification)
 
