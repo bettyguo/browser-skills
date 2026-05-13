@@ -1,22 +1,16 @@
-"""Parsing for `## Success criteria` sections in SKILL.md.
+"""Parser and evaluator for the `## Success criteria` block in SKILL.md.
 
-This is the first half of the v0.3 success-criteria DSL ():
-turn the prose-y `## Success criteria` section into a structured list
-of Criteria. Each Criterion is one or more Predicates OR'd together.
+Each line is one Criterion; a Criterion is one or more Predicates OR'd
+together. Unknown predicates are kept with `unknown=True` so the
+evaluator can soft-pass them.
 
-Evaluation lives in a follow-up commit; this module is parse-only so
-the behavior-change is gated separately from the format work.
-
-Syntax it accepts:
+Syntax:
 
     - assert <predicate>
     - assert <predicate> OR <predicate>
     - assert <predicate> OR <predicate> OR <predicate>
 
-Lines that don't start with `- assert ` are skipped (prose).
-Predicates the parser doesn't recognize are kept with `unknown=True`
-so the evaluator can soft-pass them later (skill criteria across the
-v1 bundle use a wide vocabulary, much of it aspirational).
+Lines that aren't `- assert ...` shape are skipped (prose).
 """
 from __future__ import annotations
 
@@ -31,11 +25,8 @@ from browser_skills._js_predicates import (
     JS_NO_VISIBLE_ELEMENT,
 )
 
-# `KNOWN_PREDICATES` is derived from `_DISPATCH` at import time, so the
-# parser can never claim a verb is known that the evaluator doesn't
-# handle (or vice versa). Single source of truth lives at _DISPATCH
-# below. The `KNOWN_PREDICATES` symbol is kept as the public-facing
-# read-only set for tests and docs.
+# `KNOWN_PREDICATES` is derived from `_DISPATCH` so parser and
+# evaluator can't disagree about which verbs exist.
 
 
 @dataclass
@@ -100,15 +91,12 @@ async def evaluate_predicate(
     error_sink: list[str] | None = None,
 ) -> EvalResult:
     """Evaluate one predicate. Returns True/False for known predicates,
-    None for unknown/undecidable. Never raises — callers expect None
-    on internal failure too (the runner treats None as soft-pass).
+    None for unknown/undecidable. Never raises; the runner treats None
+    as soft-pass.
 
-    `error_sink`: optional list to which the evaluator appends a
-    one-line "verb: error" message when an exception is swallowed.
-    The runner threads its `warnings` list in so internal eval errors
-    end up in the trace and the SkillResult instead of disappearing
-    silently. None by default for backwards compatibility with direct
-    callers (tests).
+    `error_sink`: optional list. When the evaluator swallows an
+    exception it appends a `verb: error` line so the failure ends up
+    in the trace rather than disappearing.
     """
     if p.unknown:
         return None
@@ -203,16 +191,12 @@ _DISPATCH = {
 }
 
 
-# Public read-only view, derived. Adding a verb to _DISPATCH
-# automatically adds it here — single source of truth.
 KNOWN_PREDICATES: frozenset[str] = frozenset(_DISPATCH.keys())
 
 
 _ASSERT_LINE_RE = re.compile(r"^\s*-\s*assert\s+(.+)$", re.IGNORECASE)
 _OR_SPLIT_RE = re.compile(r"\s+OR\s+", re.IGNORECASE)
 _VARNAME_RE = re.compile(r"^\$([A-Za-z_][A-Za-z0-9_]*)$")
-# Top-level key= scanner — reused shape from skill.py recipe parser, but
-# kept local so the modules don't accidentally couple.
 _KV_KEY_RE = re.compile(r"(\w+)=")
 
 

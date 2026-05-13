@@ -75,8 +75,8 @@ Per `sensitive: true`:
 - form-fill events for password fields are recorded as `{value:
   "[REDACTED]"}` in the trace
 - screenshots taken during this skill's steps are blackened over the
-  password field's bounding box (M5 feature; v0.1 omits screenshots
-  entirely)
+  password field's bounding box (v0.1 omits screenshots from this
+  skill entirely)
 
 ## Related skills
 

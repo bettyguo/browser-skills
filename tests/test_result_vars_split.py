@@ -49,8 +49,7 @@ async def test_caller_vars_round_trip_into_vars_in_not_extracted(tmp_path: Path)
 
     assert result.vars_in == {"target_date": "2026-06-15"}
     assert "target_date" not in result.extracted, (
-        "caller's input leaked into `extracted`; v0.2 behavior was the "
-        "bug D1 fixes"
+        "caller's input leaked into `extracted`"
     )
     assert result.extracted == {}
 

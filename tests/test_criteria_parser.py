@@ -158,16 +158,12 @@ def test_every_shipped_skill_success_criteria_parses() -> None:
                 assert isinstance(p, Predicate)
 
 
-def test_at_least_one_pilot_skill_has_only_known_predicates() -> None:
-    """The pilot-skill set (skills we plan to flip
-    metadata.evaluate_success_criteria=true on in step 3) must have
-    success_criteria entirely composed of KNOWN_PREDICATES. Locks in
-    the migration target.
+def test_pilot_skill_uses_only_known_predicates() -> None:
+    """Skills that flip `evaluate_success_criteria=true` must have
+    success_criteria composed entirely of KNOWN_PREDICATES.
     """
     bundle = load_bundle(REPO_SKILLS)
     by_name = {s.name: s for s in bundle}
-    # verify-page-loaded is our cleanest pilot — every assert line uses
-    # primitives the v0.1 `assert` verb already implements.
     skill = by_name["verify-page-loaded"]
     assert skill.success_criteria, "verify-page-loaded should have parsed criteria"
     for c in skill.success_criteria:
