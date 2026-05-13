@@ -161,4 +161,4 @@ python benchmarks/run.py --mode=full   # real Chromium, ~10 min
 
 ## License
 
-[MIT](LICENSE). All skills MIT under [ADR-010](DECISIONS.md). DCO sign-off on commits ([CONTRIBUTING.md](CONTRIBUTING.md)).
+[MIT](LICENSE). DCO sign-off on commits ([CONTRIBUTING.md](CONTRIBUTING.md)).
