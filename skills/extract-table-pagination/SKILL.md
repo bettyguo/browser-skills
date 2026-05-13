@@ -1,6 +1,6 @@
 ---
 name: extract-table-pagination
-description: Extract structured data from an HTML table, optionally walking through paginated views. Returns a list of row dicts keyed by header cells. The killer-demo skill (used to monitor conference paper lists).
+description: Extract structured data from an HTML table, optionally walking through paginated views. Returns a list of row dicts keyed by header cells. The demo skill (used to monitor conference paper lists).
 version: 0.2.0
 allowed-tools: [wait_for_dom_ready, wait_for_selector, extract_table, click, wait, assert]
 metadata:
@@ -21,7 +21,7 @@ metadata:
     deterministic_only: false
     max_vision_calls: 1
   sensitive: false
-  # Pilot opt-in for runner-evaluated success criteria (C3+C7).
+  # Pilot opt-in for runner-evaluated success criteria (this work).
   # The single criterion `$rows_page_1 is_non_empty_list` is a
   # KNOWN_PREDICATE — definitively decidable from the runner's vars
   # map after the extract_table step binds it.

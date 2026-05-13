@@ -1,4 +1,4 @@
-"""S1: no f-string-into-JS interpolation in primitives.
+"""no f-string-into-JS interpolation in primitives.
 
 The audit flagged scroll.py for f-string-formatting recipe args directly
 into JS source. Currently safe because the args are type-checked as
@@ -10,7 +10,6 @@ src/browser_skills/primitives/ uses f-string syntax inside a string
 passed to page.evaluate. Plus a runtime test that confirms the scroll
 primitive parameterizes delta correctly.
 """
-
 from __future__ import annotations
 
 import re
@@ -63,7 +62,6 @@ class _RecordingPage(FakePage):
     """Captures every evaluate() call so the test can inspect what was
     sent — JS source and arg list separately.
     """
-
     def __init__(self) -> None:
         super().__init__()
         self.eval_calls: list[tuple[str, tuple]] = []

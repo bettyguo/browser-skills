@@ -1,7 +1,6 @@
 """Process-wide runtime configuration. Module-level mutable state, kept
 small on purpose. Tests reset via reset_for_test().
 """
-
 from __future__ import annotations
 
 from typing import TYPE_CHECKING

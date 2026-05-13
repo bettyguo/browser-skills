@@ -4,7 +4,6 @@ These tests cover the server surface without spinning up a real browser —
 the start_browser / navigate / invoke_skill paths need Playwright and
 network, so they're only exercised in the weekly benchmark cron.
 """
-
 from __future__ import annotations
 
 import pytest
@@ -33,7 +32,7 @@ async def test_mcp_lists_expected_tools() -> None:
 
 
 async def test_mcp_tool_set_documented_in_readme_and_design_doc() -> None:
-    """Doc1+Doc2 (audit-2): the README and docs/mcp-design.md tool
+    """the README and docs/mcp-design.md tool
     lists drifted from the actual server (missing `reload_skills`
     after D3). Lock the two surfaces together so future tool
     additions touch the docs in the same PR.
@@ -97,7 +96,7 @@ async def test_mcp_session_not_found_error_shape() -> None:
 
 
 async def test_mcp_invoke_skill_vision_budget_overrides_skill_default() -> None:
-    """T5 (audit-2): the MCP `invoke_skill` tool accepts a per-call
+    """the MCP `invoke_skill` tool accepts a per-call
     `vision_budget` argument. The runner is supposed to honor it as an
     override of the skill's `metadata.cost_budget.max_vision_calls`,
     but nothing in the test suite verified that the value propagates
@@ -223,7 +222,7 @@ async def test_mcp_invoke_skill_vision_budget_overrides_skill_default() -> None:
 
 
 async def test_mcp_reload_skills_via_client_returns_skill_count() -> None:
-    """T1 (audit-2): `reload_skills` had function-level coverage via
+    """`reload_skills` had function-level coverage via
     test_skill_cache.py but no test exercised the full MCP-wiring path
     (`Client.call_tool("reload_skills", {})`). This catches breakage in
     the tool registration or the response envelope without needing a

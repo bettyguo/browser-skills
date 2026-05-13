@@ -1,6 +1,6 @@
 """Parsing for `## Success criteria` sections in SKILL.md.
 
-This is the first half of the v0.3 success-criteria DSL (audit-1 C3+C7):
+This is the first half of the v0.3 success-criteria DSL ():
 turn the prose-y `## Success criteria` section into a structured list
 of Criteria. Each Criterion is one or more Predicates OR'd together.
 
@@ -18,7 +18,6 @@ Predicates the parser doesn't recognize are kept with `unknown=True`
 so the evaluator can soft-pass them later (skill criteria across the
 v1 bundle use a wide vocabulary, much of it aspirational).
 """
-
 from __future__ import annotations
 
 import re
@@ -46,7 +45,6 @@ class Predicate:
     `args` is parsed key=value pairs; for `$varname <verb>` shapes,
     the variable name (without the `$`) is in `args["var"]`.
     """
-
     verb: str
     args: dict[str, Any] = field(default_factory=dict)
     unknown: bool = False
@@ -57,7 +55,6 @@ class Criterion:
     """One success-criterion line. A list of Predicates OR'd together
     (single-predicate criteria are length-1 lists).
     """
-
     predicates: list[Predicate]
     raw_text: str
     parseable: bool = True

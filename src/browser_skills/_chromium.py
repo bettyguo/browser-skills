@@ -8,7 +8,6 @@ skip decorator both need; this module is the single source of truth.
 Public:
   chromium_install_path() -> Path | None
 """
-
 from __future__ import annotations
 
 import re

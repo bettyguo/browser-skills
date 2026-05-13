@@ -2,7 +2,6 @@
 skill is added or an existing one is modified, the bundle must still
 satisfy the M2-shipping contract documented in docs/skill-recipe-format.md.
 """
-
 from __future__ import annotations
 
 import re
@@ -79,9 +78,9 @@ def test_every_skill_metadata_exercised_on_has_two_or_more_sites(
 
 
 def test_no_skill_uses_vision_in_recipe_happy_path(bundle: list[Skill]) -> None:
-    """Per ADR-003: deterministic-first. Vision is only allowed as fallback,
+    """Per : deterministic-first. Vision is only allowed as fallback,
     never as a recipe step. If a recipe uses the `vision` verb directly,
-    the wedge collapses (the agent might as well call vision itself).
+    the value collapses (the agent might as well call vision itself).
     """
     bad: list[str] = []
     for s in bundle:
@@ -92,7 +91,7 @@ def test_no_skill_uses_vision_in_recipe_happy_path(bundle: list[Skill]) -> None:
 
 
 def test_detect_captcha_has_max_vision_calls_zero(bundle: list[Skill]) -> None:
-    """Per the ethics posture (ADR-004): detect-captcha must never invoke
+    """Per the ethics posture: detect-captcha must never invoke
     the vision adapter — that would be a step toward solving.
     """
     skill = next((s for s in bundle if s.name == "detect-captcha"), None)

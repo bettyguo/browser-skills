@@ -2,10 +2,9 @@
 CI/cron pipelines from silent regressions where the YAML still parses
 but doesn't do what its name promises.
 
-Regression tests for Phase 2 audit findings C1, C4, C5, plus a D4
+Regression tests for the early scoping audit findings C1, C4, C5, plus a D4
 metric-honesty test on the benchmark runner.
 """
-
 from __future__ import annotations
 
 from pathlib import Path
@@ -36,7 +35,7 @@ def _step_run_commands(workflow: dict) -> list[str]:
 
 
 def test_weekly_benchmark_deploys_to_github_pages() -> None:
-    """C5: publish.py generates benchmarks/_site/index.html locally on
+    """publish.py generates benchmarks/_site/index.html locally on
     the runner, but the previous workflow had no step to upload or
     deploy it. Without an upload-pages-artifact step (or equivalent),
     the HTML is discarded with the runner.
@@ -67,7 +66,7 @@ def test_weekly_benchmark_deploys_to_github_pages() -> None:
 
 
 def test_weekly_benchmark_archives_results_into_history() -> None:
-    """C4: file_issues.py diffs the current run against the latest file in
+    """file_issues.py diffs the current run against the latest file in
     benchmarks/_runs/. If the workflow never writes into _runs/, the diff
     is always against nothing and regression detection is a no-op.
 
@@ -86,7 +85,7 @@ def test_weekly_benchmark_archives_results_into_history() -> None:
 
 
 def test_weekly_benchmark_runs_full_mode_not_quick() -> None:
-    """C1: the workflow header advertises a real-site benchmark, but
+    """the workflow header advertises a real-site benchmark, but
     `python benchmarks/run.py` defaults to --mode=quick (no network).
     The cron must explicitly opt into --mode=full.
     """

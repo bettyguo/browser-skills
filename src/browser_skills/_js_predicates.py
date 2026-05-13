@@ -7,7 +7,6 @@ in one wouldn't reflect in the other and the silent-divergence risk
 made the matcher / criteria stories harder to maintain in sync.
 Single source of truth lives here.
 """
-
 from __future__ import annotations
 
 

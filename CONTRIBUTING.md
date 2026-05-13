@@ -6,7 +6,7 @@ practical mechanics and the few non-negotiables.
 ## Hard lines (will not change)
 
 Before you spend time on something, make sure it isn't one of these.
-See [docs/ethics.md](docs/ethics.md) and [DECISIONS.md](DECISIONS.md):
+See [docs/ethics.md](docs/ethics.md) and the project's ethics doc:
 
 - **No captcha solving.** Detect-only. Solving PRs are closed.
 - **No anti-detection / fingerprint spoofing.** We don't ship stealth
@@ -28,16 +28,16 @@ In rough priority order:
    variants we don't yet cover. PR target: add to the `try_each`
    list in the existing skill's SKILL.md, bump the patch version.
 3. **New skills** that fit the general-pattern bar (see
-   [docs/skills-design.md](docs/skills-design.md)). Open an issue first
+   ). Open an issue first
    so we can align on naming and overlap with existing skills.
 4. **Backend adapter improvements** for browser-use, Stagehand, or
-   any new browser-automation library. See ADR-006.
+   any new browser-automation library. 
 5. **Benchmark site additions** that are ToS-friendly and
    non-overlapping with existing fixtures.
 
 ## Licensing
 
-All contributions are MIT (see [LICENSE](LICENSE) and ADR-010).
+All contributions are MIT (see [LICENSE](LICENSE) and ).
 Contributors retain copyright; contributions are licensed in.
 
 We use **DCO sign-off**, not a CLA. Add a `Signed-off-by` line to your
@@ -93,7 +93,7 @@ python benchmarks/run.py --mode=full
    - Known failures documents at least one (intellectual honesty)
    - `flake_rate_target` is honest, not aspirational
 4. Add a parser fixture test or extend `tests/test_bundle_completeness.py`.
-5. Update [docs/skills-design.md](docs/skills-design.md) if you're
+5. Update  if you're
    adding to the launch set (rare).
 
 ## Code style

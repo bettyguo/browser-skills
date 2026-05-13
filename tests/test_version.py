@@ -1,5 +1,4 @@
 """Version invariants — keep pyproject, package, and CHANGELOG in sync."""
-
 from __future__ import annotations
 
 import re

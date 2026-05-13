@@ -26,7 +26,7 @@ Open a new browser session.
 
 ```yaml
 input:
-  headed: bool = false           # ADR-008: default headless
+  headed: bool = false           # : default headless
   context_name: str | None       # if set, reuse a persistent context (cookies/auth survive)
   ignore_https_errors: bool = false
   viewport: { width: int, height: int } = {1280, 800}

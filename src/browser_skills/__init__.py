@@ -3,7 +3,6 @@
 Conforms to the agentskills.io specification. See docs/skill-recipe-format.md
 for the recipe convention used inside SKILL.md bodies.
 """
-
 __version__ = "0.3.0"
 
 from browser_skills.skill import (

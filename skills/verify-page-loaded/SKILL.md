@@ -17,7 +17,7 @@ metadata:
     deterministic_only: true
     max_vision_calls: 0
   sensitive: false
-  # Pilot opt-in for runner-evaluated success criteria (C3+C7).
+  # Pilot opt-in for runner-evaluated success criteria (this work).
   # Every predicate in this skill's ## Success criteria section is a
   # KNOWN_PREDICATE; the evaluator can decide them definitively.
   evaluate_success_criteria: true

@@ -1,5 +1,4 @@
 """wait, wait_for_dom_ready, wait_for_selector primitives."""
-
 from __future__ import annotations
 
 import asyncio

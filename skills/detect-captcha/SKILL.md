@@ -70,7 +70,7 @@ Agent task: "Search for foo on site X and grab the first 3 results."
 
 ## Ethical posture
 
-This skill exists *to make captcha presence visible to the agent* so the agent (and the user) can make an informed decision. The decision is **not** "now solve it." See ADR-004 in [DECISIONS.md](../../DECISIONS.md).
+This skill exists *to make captcha presence visible to the agent* so the agent (and the user) can make an informed decision. The decision is **not** "now solve it." md](../../DECISIONS.md).
 
 ## Related skills
 

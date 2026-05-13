@@ -148,7 +148,7 @@ Export: `browser-skills trace export <trace_id> --to bug.zip`.
 
 - Each MCP `invoke_skill` call gets its own Playwright `BrowserContext`. No shared state between concurrent calls.
 - A single skill execution is **synchronous within itself** — steps run sequentially. We don't try to parallelize steps inside a recipe.
-- Multiple skills running concurrently against the *same* page are forbidden in v1 (returns error). Phase 3 may add a queue.
+- Multiple skills running concurrently against the *same* page are forbidden in v1 (returns error). the early scoping may add a queue.
 
 ## Sandbox / safety hooks
 

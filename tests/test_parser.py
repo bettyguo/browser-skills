@@ -1,5 +1,4 @@
 """SKILL.md parser tests."""
-
 from __future__ import annotations
 
 import textwrap

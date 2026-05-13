@@ -5,7 +5,7 @@
 
 ## Step 0 — Does the skill belong?
 
-A v1 skill ships if it scores ≥3 of these (from [docs/skills-design.md](skills-design.md)):
+A v1 skill ships if it scores ≥3 of these (from ):
 
 1. **Frequency** — the boring step happens on >50% of agent sessions
 2. **Friction cost** — without a skill, vision-only agents burn ≥1 model call + visible latency
@@ -135,7 +135,7 @@ All green? You're done.
 ## Step 6 — Open a PR
 
 - Include a paragraph in the PR description explaining what real sites
-  this targets and why the deterministic-vs-vision wedge matters here.
+  this targets and why the deterministic-vs-vision differentiation matters here.
 - The PR template asks for the 5-criterion score; be honest. A 3/5 skill
   ships; a 1/5 skill is "interesting, lives in your fork."
 - DCO sign-off: `git commit -s`.

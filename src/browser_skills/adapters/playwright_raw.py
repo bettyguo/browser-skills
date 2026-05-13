@@ -10,9 +10,8 @@ A real Playwright Page already satisfies our PageLike protocol almost as-is
      the screenshot recipe verb).
 
 Future translation of Playwright's TimeoutError into our StepRetryable
-vs StepFailed semantics is tracked as a Phase 3 roadmap item.
+vs StepFailed semantics is tracked as a the early scoping roadmap item.
 """
-
 from __future__ import annotations
 
 from typing import Any
@@ -22,7 +21,6 @@ from browser_skills.primitives import PageLike
 
 class PlaywrightPage(PageLike):  # type: ignore[misc]  # Protocol subclassing
     """Wraps playwright.async_api.Page. Methods delegate; errors translate."""
-
     def __init__(self, page: Any) -> None:  # pragma: no cover
         self._page = page
 

@@ -9,7 +9,6 @@ Commands:
   mcp serve                  — run the MCP server (stdio or streamable-http)
   mcp install <target>       — write an MCP stanza into a client config file
 """
-
 from __future__ import annotations
 
 import asyncio
@@ -353,8 +352,6 @@ enough that an agent reading just this section can decide "yes" or "no".
 
 - TODO — at least one documented failure mode. Intellectual honesty.
 """
-
-
 _FIXTURE_TEMPLATE = """\
 <!DOCTYPE html>
 <html lang="en">
@@ -370,8 +367,6 @@ _FIXTURE_TEMPLATE = """\
 </body>
 </html>
 """
-
-
 @app.command(name="test")
 def test_skill(
     name: str = typer.Argument(..., help="Skill name to test against its fixture page."),

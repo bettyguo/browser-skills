@@ -6,7 +6,6 @@ expressive enough to exercise the v1 verbs: selectors are dict-keyed
 strings, evaluate() consults a small lookup table. Tests describe the
 "page" as a small dataclass; the fake page renders it on demand.
 """
-
 from __future__ import annotations
 
 import asyncio

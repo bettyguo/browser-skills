@@ -1,5 +1,4 @@
 """scroll and scroll_until primitives."""
-
 from __future__ import annotations
 
 import asyncio
@@ -28,7 +27,7 @@ async def scroll(
         y = await page.evaluate(js)
         return {"target": "window", "scrolled_to_y": y}
     if isinstance(delta, int):
-        # S1: pass delta as an evaluate arg, not via f-string. JS source
+        # pass delta as an evaluate arg, not via f-string. JS source
         # is now constant; user-influenced values cross the bridge as
         # data, never as code. (Same hygiene as parameterized SQL.)
         if target == "window":

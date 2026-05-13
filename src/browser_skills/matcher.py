@@ -2,7 +2,6 @@
 
 See docs/matcher-design.md for the rationale and scoring rules.
 """
-
 from __future__ import annotations
 
 import fnmatch

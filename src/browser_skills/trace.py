@@ -1,5 +1,4 @@
 """Trace recording. One trace per skill execution. Zip export on demand."""
-
 from __future__ import annotations
 
 import json

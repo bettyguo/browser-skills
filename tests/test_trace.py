@@ -1,5 +1,4 @@
 """Trace zip export tests."""
-
 from __future__ import annotations
 
 import json

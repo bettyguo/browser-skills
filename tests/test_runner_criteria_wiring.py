@@ -1,11 +1,10 @@
 """Runner + criteria evaluator end-to-end.
 
-C3+C7 step 3: skills that opt in via `metadata.evaluate_success_criteria:
+this work: skills that opt in via `metadata.evaluate_success_criteria:
 true` get their parsed criteria evaluated after the recipe completes.
 Decidable False criteria turn the run into status=failed even if every
 recipe step succeeded.
 """
-
 from __future__ import annotations
 
 import textwrap
@@ -199,11 +198,11 @@ async def test_opt_in_skill_with_only_unknown_predicates_soft_passes(
 
 
 async def test_criteria_fire_after_vision_rescues_recipe(tmp_path: Path) -> None:
-    """T1 (audit-3): the audit-1 C7 concern was that vision fallback
+    """the  concern was that vision fallback
     could silently mask criteria failures — vision succeeds, runner
     reports success, criteria never get checked.
 
-    After C3+C7 step 3 + this verification: when an opt-in skill's
+    After this work + this verification: when an opt-in skill's
     recipe fails, vision fallback runs, and EVEN IF the adapter
     "rescues" by executing some action, the post-vision criteria still
     decide the final status. If the criteria are decidably-false, the
@@ -265,7 +264,7 @@ async def test_criteria_fire_after_vision_rescues_recipe(tmp_path: Path) -> None
 
 
 async def test_evaluator_error_surfaces_as_runner_warning(tmp_path: Path) -> None:
-    """S2 (audit-3): if a predicate evaluator raises (page.evaluate
+    """if a predicate evaluator raises (page.evaluate
     crashes, JS payload is malformed, etc.), the error must surface in
     SkillResult.warnings instead of being silently swallowed.
     """

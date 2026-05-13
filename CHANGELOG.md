@@ -11,12 +11,12 @@ change).
 ## [0.3.0] — 2026-05-13
 
 Second user-facing release. Two roadmap-v0.3 must-ship items shipped
-(C3+C7 success-criteria DSL, D1 extracted/vars split), plus the
-audit-2 fixes that were held for this cut and a quality batch.
+(this work success-criteria DSL, D1 extracted/vars split), plus the
+an earlier review fixes that were held for this cut and a quality batch.
 
 ### Added
 
-- **Success-criteria DSL** (C3+C7). `## Success criteria` sections in
+- **Success-criteria DSL** (this work). `## Success criteria` sections in
   SKILL.md are now parsed at load time and (when the skill opts in
   via `metadata.evaluate_success_criteria: true`) evaluated at the
   end of every run. Eight known predicates: `dom_ready`,
@@ -32,7 +32,7 @@ audit-2 fixes that were held for this cut and a quality batch.
   separate from `extracted`. New field on the dataclass; new field
   in the MCP `invoke_skill` response envelope.
 - **`reload_skills` documentation** across [README.md](README.md),
-  [docs/mcp-design.md](docs/mcp-design.md), and [CLAUDE.md](CLAUDE.md).
+  [docs/mcp-design.md](docs/mcp-design.md), and .
   (The tool itself shipped in v0.2.0; v0.3 closes the doc gap.)
 - **`browser_skills._chromium.chromium_install_path()`** — shared
   helper for `doctor` and integration-test skip detection. Private
@@ -62,7 +62,7 @@ audit-2 fixes that were held for this cut and a quality batch.
 
 - **`_free_port` flake** in integration tests: retries until it gets
   a port Chromium will accept (avoids 5060/SIP, 6000/X11, 6665-6669
-  IRC, etc.). Surfaced as a real CI flake during the C3+C7 work.
+  IRC, etc.). Surfaced as a real CI flake during the this work work.
 - **`scroll` primitive** parameterizes `delta` via `evaluate(js, *args)`
   instead of f-string-interpolating the value into JS source.
   Defense-in-depth against future community-authored primitives.
@@ -71,7 +71,7 @@ audit-2 fixes that were held for this cut and a quality batch.
 ### Test infrastructure
 
 - 154 tests passing in ~13 s, up from v0.2's 104. New coverage:
-  - C3+C7 — 34 tests across parser, evaluator, and runner wiring
+  - this work — 34 tests across parser, evaluator, and runner wiring
   - D1 — 6 tests covering the round-trip semantics
   - `reload_skills` via fastmcp Client (T1)
   - `vision_budget` MCP override propagation (T5)
@@ -101,7 +101,7 @@ audit-2 fixes that were held for this cut and a quality batch.
   own adapter. v0.4 must-ship.
 - **F4** Stagehand TS adapter — recipes are still Python-only at
   the runner level.
-- **S1 audit-1** full AST-based JS-injection lint — the regex check
+- **S1 an earlier review** full AST-based JS-injection lint — the regex check
   shipped in v0.2 covers single-line f-strings; multi-line cases are
   still on the v0.4 list.
 - Several success-criteria predicates remain unimplemented
@@ -117,7 +117,7 @@ First user-facing release. Combines the original v1 bundle work
 (15 skills, MCP server, CLI, benchmark scaffolding) with a complete
 three-phase audit cycle that turned up and fixed two P0 security
 issues, two P0 correctness bugs, and a handful of P1s. Version
-jumps from 0.0.1 directly to 0.2.0; see [docs/roadmap-v0.2.md](docs/roadmap-v0.2.md)
+jumps from 0.0.1 directly to 0.2.0; see 
 for the semver rationale.
 
 ### Added
@@ -220,17 +220,17 @@ for the semver rationale.
   [docs/authoring.md](docs/authoring.md),
   [docs/benchmarks.md](docs/benchmarks.md),
   [docs/ethics.md](docs/ethics.md),
-  [docs/ecosystem-recon.md](docs/ecosystem-recon.md),
+ ,
   [docs/skill-recipe-format.md](docs/skill-recipe-format.md),
   [docs/matcher-design.md](docs/matcher-design.md),
   [docs/runner-design.md](docs/runner-design.md),
   [docs/mcp-design.md](docs/mcp-design.md),
-  [docs/roadmap-v0.2.md](docs/roadmap-v0.2.md).
+
 - [CONTRIBUTING.md](CONTRIBUTING.md) with hard lines + DCO
   sign-off requirement, now CI-enforced.
-- [CLAUDE.md](CLAUDE.md) — orientation for Claude Code sessions on
+-  — orientation for Claude Code sessions on
   this repo.
-- [DECISIONS.md](DECISIONS.md) — 12 ADRs covering scope, format
+- the project's ethics doc — 12 ADRs covering scope, format
   conformance, runtime portability, ethics posture, and headed-mode
   defaults.
 
