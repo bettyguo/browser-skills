@@ -132,4 +132,5 @@ python benchmarks/run.py --mode=full  # real Chromium against the 20 sites
 
 ## License
 
-[MIT](LICENSE). DCO sign-off on commits ([CONTRIBUTING.md](CONTRIBUTING.md)).
+[MIT](LICENSE). Contributors sign commits off with `git commit -s`
+(DCO); see [CONTRIBUTING.md](CONTRIBUTING.md).
