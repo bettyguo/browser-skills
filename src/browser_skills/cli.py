@@ -466,16 +466,13 @@ def mcp_install(
         ..., help="claude-desktop | cursor | codex | continue | print"
     ),
 ) -> None:
-    """Write an MCP server stanza (stdio transport) to the appropriate
-    config file (or print it).
+    """Write an MCP server stanza (stdio transport) to the right
+    config file, or print it.
 
-    HTTP transport is intentionally not supported by this command in
-    v0.2 — see [docs/mcp-design.md](docs/mcp-design.md). Until Bearer-
-    token auth is implemented and tested, writing an HTTP MCP stanza
-    into a user's client config would be a quiet foot-gun. Run
-    `browser-skills mcp serve --transport=streamable-http` manually if
-    you intend to put it behind your own auth (Tailscale, Cloudflare
-    Access, etc.); we don't pre-write that config for you.
+    HTTP transport is not offered here. Until Bearer-token auth is in,
+    writing an HTTP MCP stanza into a client config is a foot-gun. Run
+    `browser-skills mcp serve --transport=streamable-http` yourself if
+    you want it behind your own auth.
     """
     import json
     import os

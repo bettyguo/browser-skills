@@ -106,10 +106,12 @@ What we explicitly DON'T benchmark against:
 
 ## Cross-backend benchmark
 
-The killer-moat we're building toward — promised for v0.2: same 15 skills, same 20 sites, three backends:
+Planned for v0.2: same 15 skills, same 20 sites, three backends:
 
 - Claude 4.7 computer-use API
 - GPT-5.5 native CUA
 - Gemini Computer Control
 
-Same script, three runs, publish the cross-tab. The durable claim is **"same recipe, same outcome, regardless of which model drives the browser."** That's the position no competitor currently owns.
+Same script, three runs, publish the cross-tab. The claim being tested
+is "same recipe, same outcome, regardless of which model drives the
+browser."

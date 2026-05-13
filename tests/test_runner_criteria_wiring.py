@@ -121,14 +121,10 @@ async def test_opt_in_skill_with_or_clause_uses_or_semantics(tmp_path: Path) -> 
     assert result.status == "success"
 
 
-# --- Backwards compatibility: opt-out skills keep old behavior ----------
-
-
 async def test_skill_without_opt_in_ignores_criteria(tmp_path: Path) -> None:
-    """A skill that doesn't set `evaluate_success_criteria: true`
-    retains v0.1/0.2 behavior — the runner uses "every recipe step
-    succeeded" as the sole success signal. Important: the entire v1
-    bundle ships without the flag; this test guards their compatibility.
+    """Skill without `evaluate_success_criteria: true`: success is "every
+    recipe step succeeded." The shipped bundle is opt-out so this path
+    matters.
     """
     skill_md = _write_skill(
         tmp_path,
