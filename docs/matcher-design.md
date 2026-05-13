@@ -8,7 +8,7 @@ Browser agents in 2026 (Claude 4.7, GPT-5.5 native CUA, Gemini Computer Control)
 
 Two reasons:
 
-1. **Cost.** Asking the model "which of these 15 skills applies?" on every page is a model call. At scale (the killer-demo monitors 5 sites; a real automation might hit 500) those calls add up.
+1. **Cost.** Asking the model "which of these 15 skills applies?" on every page is a model call. At scale (the demo monitors 5 sites; a real automation might hit 500) those calls add up.
 2. **Stability.** Model-driven selection drifts between runs. The same page produces different skill picks under different model versions / temperatures. The matcher gives us a deterministic baseline.
 
 The matcher is **a hint**, not a gate. The final decision stays with the agent. If the agent picks a skill the matcher didn't suggest, we run it anyway — and we log the disagreement so we can improve the matcher.
@@ -81,7 +81,7 @@ class SkillMatch:
 
 ## Versions
 
-**v1 (Phase 2 M3)** — the heuristic above. Hand-tuned scoring rules per skill type. ~50 lines of Python.
+**v1 (the early scoping M3)** — the heuristic above. Hand-tuned scoring rules per skill type. ~50 lines of Python.
 
 **v2 (post-launch)** — embedding similarity over `(page features, skill description)`. Probably better recall on novel sites; needs an embedding model on hand. Defer until v1 is in production and we have telemetry on miss cases.
 

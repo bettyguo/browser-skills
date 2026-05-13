@@ -1,16 +1,10 @@
-"""Runner — executes a Skill against a PageLike, recording a Trace.
+"""Runs a Skill against a PageLike and records a Trace.
 
-Responsibilities:
-  - Step-by-step deterministic execution of the parsed recipe.
-  - Vision-fallback gate (BYO-model via VisionAdapter; budget is
-    skill-declared with per-call override).
-  - Trace capture (steps + events; sensitive-skill arg redaction).
-  - Post-recipe success-criteria evaluation when the skill opts in
-    via metadata.evaluate_success_criteria (v0.3+).
-  - D1 split: SkillResult.extracted is only primitive-mutated keys;
-    SkillResult.vars_in echoes the caller's input.
+The deterministic recipe runs first. If it fails and a VisionAdapter
+is configured and the budget allows, a single vision call may rescue
+the run. When the skill opts into success criteria evaluation, the
+parsed criteria are checked against the post-recipe page state.
 """
-
 from __future__ import annotations
 
 import time
@@ -25,7 +19,6 @@ from browser_skills.trace import Trace
 
 class Runner:
     """Execute skills. Stateless across calls; safe to reuse."""
-
     async def execute(
         self,
         skill: Skill,
@@ -33,9 +26,9 @@ class Runner:
         vars: dict[str, Any] | None = None,
         vision_budget: int | None = None,
     ) -> SkillResult:
-        # D1 (v0.3): snapshot the caller's vars so we can return a clean
-        # `extracted` map (only primitive-bound keys) alongside `vars_in`
-        # (echo of caller input). v0.2 conflated the two.
+        # Snapshot the caller's vars so we can return a clean
+        # `extracted` map (only primitive-bound keys) alongside
+        # `vars_in` (echo of caller input).
         caller_vars = dict(vars or {})
         vars = dict(caller_vars)
         trace = Trace(
@@ -70,10 +63,9 @@ class Runner:
                 failure_reason = detail.get("error") if detail else "step_failed"
                 break
 
-        # Initial pass/fail based on whether the recipe completed.
-        # The success-criteria block below (v0.3, opt-in) may further
-        # downgrade a recipe-completed run to "failed" when a decidable
-        # criterion is violated against the post-recipe page state.
+        # Initial pass/fail from whether the recipe completed. The
+        # success-criteria block below can still downgrade a completed
+        # run to "failed" if a decidable criterion is violated.
         criteria_pass = failure_reason is None
 
         if not criteria_pass and budget > 0 and config.vision_adapter is not None:
@@ -83,23 +75,17 @@ class Runner:
                 deterministic = False
                 model_calls += 1
                 tokens += int(v_result.get("tokens", 0))
-                # Vision rescued the recipe: mark recipe-completed.
-                # If the skill opts in to success-criteria evaluation,
-                # the criteria loop below still runs and may downgrade
-                # to failed if the post-vision page state doesn't
-                # satisfy the criteria (resolves audit-1 C7's concern
-                # that vision could silently mask criteria failures).
+                # Vision rescued the recipe. The criteria loop below
+                # still runs for opt-in skills, so vision can't mask a
+                # criterion violation.
                 criteria_pass = True
                 failure_reason = None
         elif not criteria_pass and budget > 0 and config.vision_adapter is None:
             warnings.append("no_vision_adapter_configured")
 
-        # C3+C7 step 3: if the skill opts in, evaluate the parsed
-        # success criteria against the post-recipe page state. An
-        # explicit-False decidable criterion turns the run into failed
-        # even if every recipe step succeeded — the recipe ran the
-        # right verbs but the page didn't reach the right state.
-        # Unknown predicates soft-pass with a warning.
+        # If the skill opts in, check parsed success criteria against
+        # the post-recipe page. A decidable-False turns the run failed
+        # even if every step succeeded. Unknown predicates soft-pass.
         if criteria_pass and skill.evaluate_success_criteria and skill.success_criteria:
             for criterion in skill.success_criteria:
                 eval_errors: list[str] = []
@@ -112,10 +98,8 @@ class Runner:
                     result=result,
                     errors=eval_errors,
                 )
-                # S2 (audit-3): predicate evaluator errors used to be
-                # silently swallowed as None. Now they surface as
-                # warnings on the SkillResult so authors can debug
-                # broken predicates without spelunking the trace.
+                # Surface eval errors as warnings so authors can debug
+                # broken predicates without reading the trace.
                 for err in eval_errors:
                     warnings.append(f"criterion eval error: {err}")
                 if result is False:
@@ -134,8 +118,8 @@ class Runner:
             deterministic_path=deterministic,
         )
 
-        # D1: `extracted` = only the keys the recipe's primitives
-        # added or mutated. `vars_in` = unmodified echo of caller input.
+        # `extracted`: keys the primitives added or changed.
+        # `vars_in`: unmodified caller input.
         extracted = {
             k: v
             for k, v in vars.items()

@@ -1,12 +1,11 @@
 """Tests for the form primitives (fill, press_key, select_option,
 screenshot_verb).
 
-Regression test for Phase 1 finding T1: none of these had unit tests,
+none of these had unit tests,
 so the v1 skills built on them (fill-multi-step-form, login-flow,
 date-picker-widget, searchable-dropdown, dismiss-newsletter-popup,
 exit-tracking-popup) were end-to-end-untested at the primitive layer.
 """
-
 from __future__ import annotations
 
 import pytest

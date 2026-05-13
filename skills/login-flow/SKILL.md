@@ -28,7 +28,7 @@ The user task requires authentication. The agent provides credentials in:
 - `vars.username` (or `vars.email`)
 - `vars.password`
 
-Per ADR-004 and [docs/ethics.md](../../docs/ethics.md): we use the
+Per  and [docs/ethics.md](../../docs/ethics.md): we use the
 agent-provided creds *only* — typically sourced by the agent from env
 vars (`$SITE_X_USER`, `$SITE_X_PASS`) the user has set, or from a
 password manager the user controls. **We never harvest, prompt for, or
@@ -75,8 +75,8 @@ Per `sensitive: true`:
 - form-fill events for password fields are recorded as `{value:
   "[REDACTED]"}` in the trace
 - screenshots taken during this skill's steps are blackened over the
-  password field's bounding box (M5 feature; v0.1 omits screenshots
-  entirely)
+  password field's bounding box (v0.1 omits screenshots from this
+  skill entirely)
 
 ## Related skills
 

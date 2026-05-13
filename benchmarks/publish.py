@@ -7,7 +7,6 @@ Outputs benchmarks/_site/index.html (committed to gh-pages by CI) with:
 
 Honest numbers only. If a row failed, it shows red — we don't hide it.
 """
-
 from __future__ import annotations
 
 import argparse
@@ -146,8 +145,6 @@ th { background: #fafafa; }
 .pill.err { background: #ffefcc; color: #7a4d00; }
 code { font-family: ui-monospace, Menlo, Consolas, monospace; }
 """
-
-
 def render(report: dict[str, Any]) -> str:
     return f"""\
 <!DOCTYPE html>
@@ -169,8 +166,6 @@ Honest numbers, including failures. See
 {_format_per_site(report)}
 </body></html>
 """
-
-
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(description="Render benchmark results to HTML")
     p.add_argument("--input", default="benchmarks/results.json")

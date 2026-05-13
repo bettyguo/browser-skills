@@ -1,4 +1,4 @@
-"""Regression test for Phase 1 finding P3.
+"""Regression test for an earlier audit.
 
 The integration-test module used to call `asyncio.run(_chromium_available())`
 at module-import time, launching Chromium during pytest collection
@@ -11,7 +11,6 @@ can be imported without an event loop running (the old code raised
 `RuntimeError: asyncio.run() cannot be called from a running event loop`
 in that scenario).
 """
-
 from __future__ import annotations
 
 import importlib
@@ -37,5 +36,5 @@ def test_integration_module_imports_without_launching_chromium() -> None:
     assert not hasattr(mod, "CHROMIUM_AVAILABLE"), (
         "test_integration_playwright still has a module-level "
         "CHROMIUM_AVAILABLE constant — chromium-availability detection "
-        "is happening eagerly at import time (Phase 1 finding P3)."
+        "is happening eagerly at import time (an earlier audit)."
     )

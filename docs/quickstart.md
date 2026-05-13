@@ -30,7 +30,10 @@ In your client, ask the agent:
 
 > List your available browser-skills. Then start a browser, visit `https://en.wikipedia.org/wiki/List_of_countries_by_population_(United_Nations)`, and tell me the top 3 most-populous countries from the table.
 
-You should see the agent call `list_skills`, `start_browser`, `navigate`, `list_applicable_skills`, then `invoke_skill("verify-page-loaded")` and `invoke_skill("extract-table-pagination")`. The answer comes back in a few seconds — no vision calls (the table is structured HTML).
+You should see the agent call `list_skills`, `start_browser`,
+`navigate`, `list_applicable_skills`, then `invoke_skill("verify-page-loaded")`
+and `invoke_skill("extract-table-pagination")`. The answer comes back
+in a few seconds with no vision calls; the table is structured HTML.
 
 ## Author your first skill
 
@@ -106,9 +109,9 @@ asyncio.run(visit("https://www.bbc.com/"))
 
 ## Where to next
 
-- [docs/skill-recipe-format.md](skill-recipe-format.md) — the SKILL.md DSL in full
-- [docs/matcher-design.md](matcher-design.md) — how skills get picked
-- [docs/runner-design.md](runner-design.md) — execution semantics + vision fallback
-- [docs/mcp-design.md](mcp-design.md) — the MCP tool surface
-- [docs/ethics.md](ethics.md) — what we will and won't do
-- [CONTRIBUTING.md](../CONTRIBUTING.md) — open a PR
+- [docs/skill-recipe-format.md](skill-recipe-format.md): the SKILL.md DSL in full.
+- [docs/matcher-design.md](matcher-design.md): how skills get picked.
+- [docs/runner-design.md](runner-design.md): execution semantics and vision fallback.
+- [docs/mcp-design.md](mcp-design.md): the MCP tool surface.
+- [docs/ethics.md](ethics.md): what we will and won't do.
+- [CONTRIBUTING.md](../CONTRIBUTING.md) for PRs.

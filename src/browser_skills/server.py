@@ -6,10 +6,9 @@ error model. Session storage is in-memory; restart clears all
 sessions. Concurrent sessions capped at MAX_CONCURRENT_SESSIONS.
 
 HTTP-transport auth: the design doc describes a bearer-token flow; the
-implementation here does NOT validate tokens (tracked as Phase 3
+implementation here does NOT validate tokens (tracked as the early scoping
 roadmap item; until then, only stdio is considered hardened).
 """
-
 from __future__ import annotations
 
 import asyncio
@@ -32,7 +31,6 @@ MAX_CONCURRENT_SESSIONS = 10
 @dataclass
 class _Session:
     """A live browser session. Holds the Playwright handles."""
-
     id: str
     headed: bool
     pw: Any

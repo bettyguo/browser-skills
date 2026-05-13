@@ -8,7 +8,6 @@ from "the skill extracted this."
 After: `vars_in` echoes the caller's input verbatim; `extracted`
 contains only keys added or mutated during the run.
 """
-
 from __future__ import annotations
 
 import textwrap
@@ -50,8 +49,7 @@ async def test_caller_vars_round_trip_into_vars_in_not_extracted(tmp_path: Path)
 
     assert result.vars_in == {"target_date": "2026-06-15"}
     assert "target_date" not in result.extracted, (
-        "caller's input leaked into `extracted`; v0.2 behavior was the "
-        "bug D1 fixes"
+        "caller's input leaked into `extracted`"
     )
     assert result.extracted == {}
 
@@ -184,7 +182,7 @@ async def test_no_caller_vars_still_produces_valid_result(tmp_path: Path) -> Non
 async def test_d1_in_place_mutation_of_caller_value_does_not_show_in_extracted(
     tmp_path: Path,
 ) -> None:
-    """T2 (audit-3): locks in the documented contract for the corner
+    """locks in the documented contract for the corner
     case where a primitive mutates a caller-passed mutable in place.
 
     `caller_vars = dict(vars or {})` is shallow. If a primitive does

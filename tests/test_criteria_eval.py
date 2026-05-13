@@ -1,10 +1,9 @@
 """Tests for the success-criteria evaluator.
 
-C3+C7 step 2: the evaluator turns each parsed Criterion into a pass /
+this work: the evaluator turns each parsed Criterion into a pass /
 fail / soft-pass verdict against a live page + vars map. Step 3
 wires the evaluator into the runner with metadata opt-in.
 """
-
 from __future__ import annotations
 
 import pytest
@@ -97,7 +96,7 @@ async def test_unknown_predicate_returns_none(fake_page: FakePage) -> None:
 
 
 async def test_evaluator_error_recorded_via_error_sink(fake_page: FakePage) -> None:
-    """S2 (audit-3): when a predicate evaluator raises (e.g., a future
+    """when a predicate evaluator raises (e.g., a future
     refactor renames an expected arg), the exception used to be
     silently caught → None. Now the caller can pass an `error_sink`
     list and get back a one-line "verb: ErrorType: message" entry, so

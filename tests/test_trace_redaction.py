@@ -1,11 +1,10 @@
 """Trace redaction for sensitive skills.
 
-Regression test for Phase 1 finding S5: skills with `metadata.sensitive:
+skills with `metadata.sensitive:
 true` (notably login-flow) recorded their fill `value` args verbatim
 in the trace zip, leaking credentials. The trace must honor the
 sensitive flag and replace such values with a redaction sentinel.
 """
-
 from __future__ import annotations
 
 import json
@@ -78,7 +77,7 @@ def test_trace_does_not_redact_when_skill_is_not_sensitive(tmp_path: Path) -> No
 
 
 def test_trace_redacts_common_credential_field_aliases(tmp_path: Path) -> None:
-    """D2 (audit-2): the original redaction list was {value, password,
+    """the original redaction list was {value, password,
     token, secret, auth}. Real-world login forms use a wider set of
     field names — `passwd`, `pwd` (Unix-style), `api_key`/`apikey`
     (SaaS), `bearer` (HTTP auth header convention). The conservative

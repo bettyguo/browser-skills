@@ -3,7 +3,6 @@
 Format conformance: agentskills.io spec + the browser-skills recipe convention
 documented in docs/skill-recipe-format.md.
 """
-
 from __future__ import annotations
 
 import re
@@ -60,8 +59,8 @@ class Skill:
         """Opt-in: when True, the runner evaluates parsed
         success_criteria after the recipe completes (and again after
         vision fallback if used). A failing decidable criterion turns
-        the SkillResult to status=failed. Default False keeps the
-        v0.1/0.2 behavior — recipe completion alone signals success.
+        the SkillResult to status=failed. Default False: recipe
+        completion alone signals success.
         """
         return bool(self.metadata.get("evaluate_success_criteria", False))
 
@@ -76,13 +75,10 @@ class SkillResult:
     model_calls: int
     tokens_used: int
     trace_id: str | None
-    # `extracted` contains ONLY the keys that were added or changed by
-    # primitive calls during this run (D1, v0.3+). To see what the
-    # caller passed in, read `vars_in`. In v0.2 these were conflated
-    # in `extracted` — see CHANGELOG.
+    # Only the keys that primitive calls added or changed during this
+    # run. To see the caller's input, read `vars_in`.
     extracted: dict[str, Any] = field(default_factory=dict)
-    # Echo of the caller's `vars` input. Read-only from the runner's
-    # perspective. Added in v0.3 (D1).
+    # Echo of the caller's `vars` input. Read-only.
     vars_in: dict[str, Any] = field(default_factory=dict)
     steps_executed: int = 0
     failure_reason: str | None = None
@@ -100,16 +96,10 @@ class BrowserSkillsError(Exception):
     """Base for all browser-skills exceptions. Library users can
     `except BrowserSkillsError` to catch anything this package raises.
     """
-
-
 class SkillParseError(BrowserSkillsError, ValueError):
-    """Raised when a SKILL.md cannot be parsed.
-
-    Inherits from both BrowserSkillsError (project-wide catch) and
-    ValueError (legacy compatibility — early test code caught ValueError).
+    """Raised when a SKILL.md cannot be parsed. Inherits ValueError so
+    `except ValueError` still catches it.
     """
-
-
 def parse_skill(path: str | Path) -> Skill:
     """Parse a SKILL.md file into a Skill object.
 

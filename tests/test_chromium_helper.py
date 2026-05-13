@@ -1,12 +1,11 @@
 """Tests for browser_skills._chromium.chromium_install_path.
 
-Regression check for P3: the chromium-detect logic used to be
+the chromium-detect logic used to be
 duplicated between cli.doctor and tests/test_integration_playwright.
 Now in one place — these tests assert (a) the helper exists and
 returns a sensible type, and (b) neither caller still inlines the
 subprocess + regex pattern.
 """
-
 from __future__ import annotations
 
 from pathlib import Path

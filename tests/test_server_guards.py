@@ -1,10 +1,9 @@
 """Server-level safety/guard tests that don't require a real browser.
 
-Regression test for Phase 1 finding S2: BROWSER_SKILLS_FORBID_HEADED was
+BROWSER_SKILLS_FORBID_HEADED was
 checked only against the literal string "1", so common truthy values
 (true, yes, on) silently allowed headed mode despite admin intent.
 """
-
 from __future__ import annotations
 
 import pytest
@@ -66,7 +65,7 @@ async def test_forbid_headed_via_in_process_config_flag(
         config.reset_for_test()
 
 
-# --- D2: is_initial_load semantics ----------------------------------------
+# --- is_initial_load semantics ----------------------------------------
 
 
 from types import SimpleNamespace
@@ -100,7 +99,7 @@ def _stub_session(*, invocations_since_navigate: int = 0) -> _Session:
 
 
 async def test_page_state_is_initial_load_after_fresh_navigate() -> None:
-    """D2: a session that has just navigated reports is_initial_load=True
+    """a session that has just navigated reports is_initial_load=True
     so the matcher gives a boost to first-page-load skills like
     verify-page-loaded and dismiss-cookie-banner.
     """
@@ -110,7 +109,7 @@ async def test_page_state_is_initial_load_after_fresh_navigate() -> None:
 
 
 async def test_page_state_is_initial_load_false_after_one_invoke() -> None:
-    """D2: after the agent has run a skill on the current page, the
+    """after the agent has run a skill on the current page, the
     same page is no longer "freshly arrived" — first-load-only skills
     should not re-fire on subsequent matcher calls without a navigate.
     """

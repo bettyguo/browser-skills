@@ -9,7 +9,6 @@ Designed for the weekly benchmark cron in .github/workflows/benchmark.yml.
 Locally, this script is a no-op unless GITHUB_TOKEN is set and the
 benchmarks/_runs/ history is present.
 """
-
 from __future__ import annotations
 
 import argparse

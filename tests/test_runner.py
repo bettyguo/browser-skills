@@ -1,7 +1,6 @@
 """End-to-end runner tests: parse a SKILL.md, execute against FakePage,
 assert a SkillResult with the expected status and deterministic_path.
 """
-
 from __future__ import annotations
 
 import textwrap

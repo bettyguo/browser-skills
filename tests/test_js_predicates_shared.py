@@ -1,4 +1,4 @@
-"""S3 (audit-3): both `criteria.py` (success-criteria evaluator) and
+"""both `criteria.py` (success-criteria evaluator) and
 `primitives/assertions.py` (in-recipe `assert` verb) need the same JS
 payloads to check page state. They used to duplicate the JS strings
 inline; this test pins the single-source-of-truth contract.
@@ -7,7 +7,6 @@ If a future refactor reintroduces the inline JS in either module,
 this test fails — pushing the author back to the shared constants
 in `browser_skills._js_predicates`.
 """
-
 from __future__ import annotations
 
 from pathlib import Path

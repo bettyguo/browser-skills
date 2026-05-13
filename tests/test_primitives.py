@@ -1,5 +1,4 @@
 """Primitive-level tests against FakePage."""
-
 from __future__ import annotations
 
 import pytest
@@ -104,7 +103,7 @@ async def test_assert_main_content_present(fake_page: FakePage) -> None:
 async def test_assert_unknown_condition_raises_not_soft_passes(
     fake_page: FakePage,
 ) -> None:
-    """C6: previously, an unrecognized `assert condition=X` returned
+    """previously, an unrecognized `assert condition=X` returned
     `{ok: True, warning: 'unrecognized; treated as soft-pass'}`, which
     silently passes assertions the runner doesn't understand — masking
     real failures. The primitive must raise StepFailed for unknown

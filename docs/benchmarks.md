@@ -12,7 +12,7 @@ For each (skill × site) pair on the benchmark, we record:
 4. **Token cost** — when vision fires, the in/out token total
 5. **Variance across re-runs** — std-dev of success across N consecutive runs
 
-The killer-demo claim — "browser-skills agent in 90 s vs vision-only agent in 8 min" — is honest only if we also publish (3), (4), and (5). Lower variance and lower cost are the durable differentiation; raw success-rate-only gets eaten by vendor CUA improvements ([ADR-007](../DECISIONS.md)).
+The demo claim — "browser-skills agent in 90 s vs vision-only agent in 8 min" — is honest only if we also publish (3), (4), and (5). Lower variance and lower cost are the durable differentiation; raw success-rate-only gets eaten by vendor CUA improvements (the ethics doc).
 
 ## Site selection
 
@@ -104,12 +104,14 @@ What we explicitly DON'T benchmark against:
 - **Sites with aggressive anti-bot** (Amazon retail, some airlines). Adds noise we can't act on.
 - **Sites that ourselves run** (no synthetic-only "100% perfect" numbers).
 
-## Cross-backend benchmark (ADR-007)
+## Cross-backend benchmark
 
-The killer-moat we're building toward — promised for v0.2: same 15 skills, same 20 sites, three backends:
+Planned for v0.2: same 15 skills, same 20 sites, three backends:
 
 - Claude 4.7 computer-use API
 - GPT-5.5 native CUA
 - Gemini Computer Control
 
-Same script, three runs, publish the cross-tab. The durable claim is **"same recipe, same outcome, regardless of which model drives the browser."** That's the position no competitor currently owns.
+Same script, three runs, publish the cross-tab. The claim being tested
+is "same recipe, same outcome, regardless of which model drives the
+browser."

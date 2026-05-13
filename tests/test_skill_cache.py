@@ -1,10 +1,9 @@
 """Skill-cache invalidation.
 
-D3: editing a SKILL.md while the MCP server was running had no effect
+editing a SKILL.md while the MCP server was running had no effect
 because `_load_skills_cached` cached forever. This test verifies that
 the cache auto-invalidates when a SKILL.md is modified.
 """
-
 from __future__ import annotations
 
 import os
